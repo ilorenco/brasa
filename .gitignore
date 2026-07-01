@@ -42,5 +42,6 @@ example
 /ios
 /android
 
-# arquivos de referencia local (design / esbocos)
+# arquivos de referencia local (design / esbocos / requisitos)
 esboco-telas-completo.html
+requisitos-app-habitos.md
