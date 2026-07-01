@@ -6,17 +6,17 @@ App em [React Native](https://reactnative.dev) + [Expo](https://expo.dev) (SDK 5
 
 1. Instalar dependências
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 2. Rodar o app
 
-   ```bash
-   npm start
-   ```
+    ```bash
+    npm start
+    ```
 
-   No terminal, escolha onde abrir: emulador Android, simulador iOS, navegador (`w`) ou [Expo Go](https://expo.dev/go) no celular (via QR code).
+    No terminal, escolha onde abrir: emulador Android, simulador iOS, navegador (`w`) ou [Expo Go](https://expo.dev/go) no celular (via QR code).
 
 ## Estrutura
 
@@ -28,13 +28,13 @@ Aliases de import já configurados no `tsconfig.json`: `@/*` → `src/*` e `@/as
 
 ## Scripts
 
-| Comando | O que faz |
-|---------|-----------|
-| `npm start` | Inicia o servidor de desenvolvimento |
-| `npm run android` | Abre no emulador Android |
-| `npm run ios` | Abre no simulador iOS |
-| `npm run web` | Abre no navegador |
-| `npm run lint` | Roda o ESLint |
+| Comando           | O que faz                            |
+| ----------------- | ------------------------------------ |
+| `npm start`       | Inicia o servidor de desenvolvimento |
+| `npm run android` | Abre no emulador Android             |
+| `npm run ios`     | Abre no simulador iOS                |
+| `npm run web`     | Abre no navegador                    |
+| `npm run lint`    | Roda o ESLint                        |
 
 ## Documentação
 
