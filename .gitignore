@@ -41,3 +41,6 @@ example
 # generated native folders
 /ios
 /android
+
+# arquivos de referencia local (design / esbocos)
+esboco-telas-completo.html
