@@ -1,0 +1,18 @@
+# Normaliza quebras de linha: LF no repositorio, converte no checkout conforme o SO
+* text=auto eol=lf
+
+# Arquivos binarios: nunca aplicar conversao de fim de linha
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
+*.mp4 binary
+*.mov binary
+*.zip binary
+*.keystore binary
