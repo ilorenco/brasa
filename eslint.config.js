@@ -12,6 +12,7 @@ module.exports = defineConfig([
             'simple-import-sort': simpleImportSort,
         },
         rules: {
+            curly: ['error', 'multi'],
             'simple-import-sort/imports': [
                 'error',
                 {
