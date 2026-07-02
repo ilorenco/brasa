@@ -1,3 +1,12 @@
+# Product context
+
+Brasa is a habit-building app grounded in **"The Power of Habit" (Charles Duhigg)** and the research the book draws on — BJ Fogg (Tiny Habits), Self-Determination Theory, Wendy Wood (Good Habits, Bad Habits). Product and UX decisions should map back to that framework:
+
+- **Habit loop (cue → routine → reward):** the anchor ("depois de tomar meu café") is the cue, the minimal habit ("ler 1 página") is the routine, and the immediate reward moment closes the loop. Never ship a check-in flow without its reward.
+- **Forgiving model:** constancy heat cools gradually on missed days instead of resetting — a miss must never read as punishment (no broken streaks, no zeroed grids).
+- **Visual concept — "campo frio, calor que se acumula":** the interface is a calm, cool space; daily effort is what brings amber warmth into it.
+- The 9 MVP screens (each tagged with its functional requirement) are specced in `esboco-telas-completo.html` — treat it as the design source of truth.
+
 # Git workflow
 
 - **Never commit without explicit permission.** Even when a commit was discussed, make the changes and stop — ask before running `git commit`. Wait for a clear go-ahead each time.

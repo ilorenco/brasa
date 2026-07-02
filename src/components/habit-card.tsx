@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
+import { HabitAnchor } from '@/components/habit-anchor';
 import type { Habit } from '@/data/mock-habits';
 
 type HabitCardProps = {
@@ -44,14 +45,7 @@ export function HabitCard({ habit, onToggle }: HabitCardProps) {
                         </Text>
                     </View>
                 ) : (
-                    <View className="mt-0.5 flex-row items-center gap-1">
-                        <Ionicons
-                            name="return-down-forward-outline"
-                            size={12}
-                            className="text-slate"
-                        />
-                        <Text className="font-mono text-[11px] text-slate">{anchor}</Text>
-                    </View>
+                    <HabitAnchor anchor={anchor} />
                 )}
             </View>
         </Pressable>

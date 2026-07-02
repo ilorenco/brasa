@@ -8,7 +8,7 @@ import { useNow } from '@/hooks/use-now';
 import { formatDateLabel, getGreeting } from '@/lib/date-labels';
 
 export default function TodayScreen() {
-    const [habits, setHabits] = useState(mockHabits);
+    const [habits, setHabits] = useState(() => mockHabits.filter((habit) => !habit.isArchived));
     const now = useNow();
     const doneCount = habits.filter((habit) => habit.isDoneToday).length;
 
