@@ -1,4 +1,5 @@
 import '../global.css';
+import '@/nativewind-interop';
 
 import {
     BricolageGrotesque_400Regular,
@@ -15,6 +16,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Mantém a splash na tela até as fontes carregarem.
 SplashScreen.preventAutoHideAsync();
@@ -33,14 +35,14 @@ export default function RootLayout() {
     });
 
     useEffect(() => {
-        if (loaded || error) {
-            SplashScreen.hideAsync();
-        }
+        if (loaded || error) SplashScreen.hideAsync();
     }, [loaded, error]);
 
-    if (!loaded && !error) {
-        return null;
-    }
+    if (!loaded && !error) return null;
 
-    return <Stack />;
+    return (
+        <SafeAreaProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+        </SafeAreaProvider>
+    );
 }
