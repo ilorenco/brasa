@@ -17,6 +17,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Import internal modules via the `@/` alias (`@/components/bottom-tab-bar`), not relative `../../` paths. Configured in `tsconfig.json` (`@/*` → `./src/*`).
 - Omit braces for single-statement `if`/`for`/`while` (`if (!tab) return null;`), not a 3-line braced block. Use braces only for blocks with multiple statements. Enforced (with autofix) by ESLint `curly: ['error', 'multi']`.
 - Small, single-purpose functions and components. Extract when a block earns a name, not before.
+- Once a hook or pure helper earns a name, it gets its own file — even with a single consumer: custom hooks in `src/hooks/` (`use-now.ts`), pure functions in `src/lib/` (`date-labels.ts`). Screens keep only state, handlers and JSX.
 - Prefer declarative code: extract presentational pieces (e.g. a list-item component) so the parent reads as a mapping over data, not a wall of inline JSX + logic.
 - Only name a function `use*` if it actually calls React hooks. Logic that just transforms its inputs stays a plain pure function — clearer intent and easier to test than a "fake hook".
 - Match the surrounding code's style, naming and patterns before introducing new ones.
