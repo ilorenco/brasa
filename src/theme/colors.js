@@ -20,6 +20,7 @@ const colors = {
         3: '#EBA63C', // âmbar principal (ação / destaque)
         4: '#C97E1E',
         deep: '#9C5E14', // âmbar profundo (texto sobre claro)
+        surface: '#FFFCF6', // superfície de item concluído (calor sutil sobre card)
     },
 
     // Slate (âncoras / elementos estruturais de destaque)
