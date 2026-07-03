@@ -1,24 +1,16 @@
-import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { HabitCard } from '@/components/habit-card';
-import { mockHabits } from '@/data/mock-habits';
+import { useHabits } from '@/contexts/habits-context';
 import { useNow } from '@/hooks/use-now';
 import { formatDateLabel, getGreeting } from '@/lib/date-labels';
 
 export default function TodayScreen() {
-    const [habits, setHabits] = useState(() => mockHabits.filter((habit) => !habit.isArchived));
+    const { habits, toggleHabitDone } = useHabits();
     const now = useNow();
-    const doneCount = habits.filter((habit) => habit.isDoneToday).length;
-
-    function handleHabitToggle(habitId: string) {
-        setHabits((currentHabits) =>
-            currentHabits.map((habit) =>
-                habit.id === habitId ? { ...habit, isDoneToday: !habit.isDoneToday } : habit
-            )
-        );
-    }
+    const activeHabits = habits.filter((habit) => !habit.isArchived);
+    const doneCount = activeHabits.filter((habit) => habit.isDoneToday).length;
 
     return (
         <SafeAreaView className="flex-1 bg-screen" edges={['top']}>
@@ -32,16 +24,16 @@ export default function TodayScreen() {
                     </Text>
                     <Text className="mt-1 font-body text-[13px] text-ink-soft">
                         <Text className="font-body-semibold text-warm-deep">
-                            {doneCount} de {habits.length}
+                            {doneCount} de {activeHabits.length}
                         </Text>
                         {' hoje · sem pressa'}
                     </Text>
                 </View>
-                {habits.map((habit) => (
+                {activeHabits.map((habit) => (
                     <HabitCard
                         key={habit.id}
                         habit={habit}
-                        onToggle={() => handleHabitToggle(habit.id)}
+                        onToggle={() => toggleHabitDone(habit.id)}
                     />
                 ))}
             </ScrollView>

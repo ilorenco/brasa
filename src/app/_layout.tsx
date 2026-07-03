@@ -18,6 +18,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { HabitsProvider } from '@/contexts/habits-context';
+
 // Mantém a splash na tela até as fontes carregarem.
 SplashScreen.preventAutoHideAsync();
 
@@ -42,7 +44,11 @@ export default function RootLayout() {
 
     return (
         <SafeAreaProvider>
-            <Stack screenOptions={{ headerShown: false }} />
+            <HabitsProvider>
+                <Stack screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
+                </Stack>
+            </HabitsProvider>
         </SafeAreaProvider>
     );
 }
