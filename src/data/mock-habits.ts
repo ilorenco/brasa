@@ -4,6 +4,7 @@ export type Habit = {
     id: string;
     name: string;
     anchor: string;
+    obstaclePlan?: string;
     isDoneToday: boolean;
     isArchived: boolean;
     constancyDays: number;
@@ -14,7 +15,8 @@ export const mockHabits: Habit[] = [
     {
         id: '1',
         name: 'Ler 1 página',
-        anchor: 'depois de tomar meu café',
+        anchor: 'tomar meu café',
+        obstaclePlan: 'se não der depois do café, leio antes de dormir',
         isDoneToday: true,
         isArchived: false,
         constancyDays: 63,
@@ -23,7 +25,7 @@ export const mockHabits: Habit[] = [
     {
         id: '2',
         name: "Beber um copo d'água",
-        anchor: 'depois de acordar',
+        anchor: 'acordar',
         isDoneToday: true,
         isArchived: false,
         constancyDays: 34,
@@ -32,7 +34,7 @@ export const mockHabits: Habit[] = [
     {
         id: '3',
         name: 'Alongar 2 minutos',
-        anchor: 'depois de acordar',
+        anchor: 'acordar',
         isDoneToday: false,
         isArchived: false,
         constancyDays: 21,
@@ -41,7 +43,7 @@ export const mockHabits: Habit[] = [
     {
         id: '4',
         name: 'Escrever 1 frase',
-        anchor: 'depois do jantar',
+        anchor: 'jantar',
         isDoneToday: false,
         isArchived: false,
         constancyDays: 9,
@@ -50,7 +52,7 @@ export const mockHabits: Habit[] = [
     {
         id: '5',
         name: 'Meditar 5 minutos',
-        anchor: 'depois do almoço',
+        anchor: 'almoçar',
         isDoneToday: false,
         isArchived: true,
         constancyDays: 12,
@@ -59,7 +61,7 @@ export const mockHabits: Habit[] = [
     {
         id: '6',
         name: 'Anotar 3 gratidões',
-        anchor: 'antes de dormir',
+        anchor: 'escovar os dentes à noite',
         isDoneToday: false,
         isArchived: true,
         constancyDays: 5,
