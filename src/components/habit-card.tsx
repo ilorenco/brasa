@@ -2,7 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
 import { HabitAnchor } from '@/components/habit-anchor';
-import type { Habit } from '@/data/mock-habits';
+import { isHabitDoneToday } from '@/lib/constancy';
+import type { Habit } from '@/types/habit';
 
 type HabitCardProps = {
     habit: Habit;
@@ -10,7 +11,8 @@ type HabitCardProps = {
 };
 
 export function HabitCard({ habit, onToggle }: HabitCardProps) {
-    const { name, anchor, isDoneToday } = habit;
+    const { name, anchor } = habit;
+    const isDoneToday = isHabitDoneToday(habit.heatHistory);
 
     return (
         <Pressable

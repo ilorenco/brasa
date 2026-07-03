@@ -2,14 +2,19 @@ import { Text, View } from 'react-native';
 
 import { ConstancyStrip } from '@/components/constancy-strip';
 import { HabitAnchor } from '@/components/habit-anchor';
-import type { Habit } from '@/data/mock-habits';
+import { countConstancyDays } from '@/lib/constancy';
+import type { Habit } from '@/types/habit';
+
+const RECENT_HEAT_DAYS = 14;
 
 type HabitListItemProps = {
     habit: Habit;
 };
 
 export function HabitListItem({ habit }: HabitListItemProps) {
-    const { name, anchor, constancyDays, recentHeat } = habit;
+    const { name, anchor, heatHistory } = habit;
+    const constancyDays = countConstancyDays(heatHistory);
+    const recentHeat = heatHistory.slice(-RECENT_HEAT_DAYS);
 
     return (
         <View className="mb-2.5 rounded-2xl border border-line bg-card p-3.5">

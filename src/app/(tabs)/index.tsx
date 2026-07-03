@@ -4,13 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { HabitCard } from '@/components/habit-card';
 import { useHabits } from '@/contexts/habits-context';
 import { useNow } from '@/hooks/use-now';
+import { isHabitDoneToday } from '@/lib/constancy';
 import { formatDateLabel, getGreeting } from '@/lib/date-labels';
 
 export default function TodayScreen() {
     const { habits, toggleHabitDone } = useHabits();
     const now = useNow();
     const activeHabits = habits.filter((habit) => !habit.isArchived);
-    const doneCount = activeHabits.filter((habit) => habit.isDoneToday).length;
+    const doneCount = activeHabits.filter((habit) => isHabitDoneToday(habit.heatHistory)).length;
 
     return (
         <SafeAreaView className="flex-1 bg-screen" edges={['top']}>

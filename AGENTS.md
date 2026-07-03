@@ -27,6 +27,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Omit braces for single-statement `if`/`for`/`while` (`if (!tab) return null;`), not a 3-line braced block. Use braces only for blocks with multiple statements. Enforced (with autofix) by ESLint `curly: ['error', 'multi']`.
 - Small, single-purpose functions and components. Extract when a block earns a name, not before.
 - Once a hook or pure helper earns a name, it gets its own file — even with a single consumer: custom hooks in `src/hooks/` (`use-now.ts`), pure functions in `src/lib/` (`date-labels.ts`), React contexts (provider + consumer hook together) in `src/contexts/` (`habits-context.tsx`). Screens keep only state, handlers and JSX.
+- Domain types in `src/types/` (`habit.ts`); mock data + seed generators in `src/mocks/` — that folder is disposable, so permanent code must only import it at the data entry point (`habits-context`), never from components or `src/lib/`.
 - Prefer declarative code: extract presentational pieces (e.g. a list-item component) so the parent reads as a mapping over data, not a wall of inline JSX + logic.
 - Only name a function `use*` if it actually calls React hooks. Logic that just transforms its inputs stays a plain pure function — clearer intent and easier to test than a "fake hook".
 - Match the surrounding code's style, naming and patterns before introducing new ones.

@@ -1,7 +1,9 @@
 import { randomUUID } from 'expo-crypto';
-import { createContext, type ReactNode, use, useState } from 'react';
+import { createContext, type ReactNode, use, useCallback, useMemo, useState } from 'react';
 
-import { type Habit, type HeatLevel, mockHabits } from '@/data/mock-habits';
+import { CONSTANCY_GRID_DAYS, toggleTodayHeat } from '@/lib/constancy';
+import { mockHabits } from '@/mocks/mock-habits';
+import type { Habit, HeatLevel } from '@/types/habit';
 
 type NewHabit = {
     name: string;
@@ -20,32 +22,33 @@ const HabitsContext = createContext<HabitsContextValue | null>(null);
 export function HabitsProvider({ children }: { children: ReactNode }) {
     const [habits, setHabits] = useState(mockHabits);
 
-    function toggleHabitDone(habitId: string) {
+    const toggleHabitDone = useCallback((habitId: string) => {
         setHabits((currentHabits) =>
             currentHabits.map((habit) =>
-                habit.id === habitId ? { ...habit, isDoneToday: !habit.isDoneToday } : habit
+                habit.id === habitId
+                    ? { ...habit, heatHistory: toggleTodayHeat(habit.heatHistory) }
+                    : habit
             )
         );
-    }
+    }, []);
 
-    function createHabit(newHabit: NewHabit) {
-        const coldStrip: HeatLevel[] = Array(14).fill(0);
+    const createHabit = useCallback((newHabit: NewHabit) => {
+        const coldHistory: HeatLevel[] = Array(CONSTANCY_GRID_DAYS).fill(0);
         const createdHabit: Habit = {
             id: randomUUID(),
             ...newHabit,
-            isDoneToday: false,
             isArchived: false,
-            constancyDays: 0,
-            recentHeat: coldStrip,
+            heatHistory: coldHistory,
         };
         setHabits((currentHabits) => [...currentHabits, createdHabit]);
-    }
+    }, []);
 
-    return (
-        <HabitsContext.Provider value={{ habits, toggleHabitDone, createHabit }}>
-            {children}
-        </HabitsContext.Provider>
+    const habitsContextValue = useMemo(
+        () => ({ habits, toggleHabitDone, createHabit }),
+        [habits, toggleHabitDone, createHabit]
     );
+
+    return <HabitsContext.Provider value={habitsContextValue}>{children}</HabitsContext.Provider>;
 }
 
 export function useHabits() {
