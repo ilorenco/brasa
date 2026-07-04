@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { HeatCell } from '@/components/heat-cell';
+import { HeatCell } from '@/components/habit/heat-cell';
 import type { HeatLevel } from '@/types/habit';
 
 const legendLevels: HeatLevel[] = [0, 1, 2, 3, 4];

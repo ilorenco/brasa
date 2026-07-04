@@ -2,20 +2,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-import { BackLink } from '@/components/back-link';
-import { ConstancyGrid } from '@/components/constancy-grid';
-import { HabitAnchor } from '@/components/habit-anchor';
-import { HeatLegend } from '@/components/heat-legend';
-import { NoteCard } from '@/components/note-card';
-import { Screen } from '@/components/screen';
-import { StatCard } from '@/components/stat-card';
+import { ConstancyGrid } from '@/components/habit/constancy-grid';
+import { HabitAnchor } from '@/components/habit/habit-anchor';
+import { HeatLegend } from '@/components/habit/heat-legend';
+import { BackLink } from '@/components/ui/back-link';
+import { NoteCard } from '@/components/ui/note-card';
+import { Screen } from '@/components/ui/screen';
+import { StatCard } from '@/components/ui/stat-card';
+import { ADHERENCE_WINDOW_DAYS, CONSTANCY_WEEKS } from '@/constants/constancy';
 import { useHabits } from '@/contexts/habits-context';
-import {
-    ADHERENCE_WINDOW_DAYS,
-    adherencePercent,
-    CONSTANCY_WEEKS,
-    countConstancyDays,
-} from '@/lib/constancy';
+import { adherencePercent, countConstancyDays } from '@/lib/constancy';
 
 export default function HabitDetailScreen() {
     const router = useRouter();

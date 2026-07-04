@@ -5,9 +5,9 @@ import { useForm, useWatch } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { FormField } from '@/components/form-field';
-import { FormInput } from '@/components/form-input';
-import { PrimaryButton } from '@/components/primary-button';
+import { FormField } from '@/components/ui/form-field';
+import { FormInput } from '@/components/ui/form-input';
+import { PrimaryButton } from '@/components/ui/primary-button';
 import { useHabits } from '@/contexts/habits-context';
 import { habitFormSchema, type HabitFormValues } from '@/lib/habit-form-schema';
 

@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 
-import { SettingsRow, type SettingsRowProps } from '@/components/settings-row';
+import { SettingsRow, type SettingsRowProps } from '@/components/ui/settings-row';
 
 type SettingsSectionProps = {
     label: string;

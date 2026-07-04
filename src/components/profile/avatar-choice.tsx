@@ -1,8 +1,8 @@
 import { cva } from 'class-variance-authority';
 import { Pressable, View } from 'react-native';
 
-import { AvatarBadge } from '@/components/avatar-badge';
-import { SeededAvatar } from '@/components/seeded-avatar';
+import { AvatarBadge } from '@/components/profile/avatar-badge';
+import { SeededAvatar } from '@/components/profile/seeded-avatar';
 
 const AVATAR_CHOICE_SIZE = 76;
 

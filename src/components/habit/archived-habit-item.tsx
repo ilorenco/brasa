@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
-import { HabitAnchor } from '@/components/habit-anchor';
+import { HabitAnchor } from '@/components/habit/habit-anchor';
 import { countConstancyDays } from '@/lib/constancy';
 import type { Habit } from '@/types/habit';
 

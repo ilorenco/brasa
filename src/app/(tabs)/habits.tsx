@@ -2,9 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-import { EmptyState } from '@/components/empty-state';
-import { HabitListItem } from '@/components/habit-list-item';
-import { Screen } from '@/components/screen';
+import { HabitListItem } from '@/components/habit/habit-list-item';
+import { EmptyState } from '@/components/ui/empty-state';
+import { Screen } from '@/components/ui/screen';
 import { useHabits } from '@/contexts/habits-context';
 
 export default function HabitsScreen() {

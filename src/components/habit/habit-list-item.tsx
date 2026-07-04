@@ -1,12 +1,11 @@
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-import { ConstancyStrip } from '@/components/constancy-strip';
-import { HabitAnchor } from '@/components/habit-anchor';
+import { ConstancyStrip } from '@/components/habit/constancy-strip';
+import { HabitAnchor } from '@/components/habit/habit-anchor';
+import { RECENT_HEAT_DAYS } from '@/constants/constancy';
 import { countConstancyDays } from '@/lib/constancy';
 import type { Habit } from '@/types/habit';
-
-const RECENT_HEAT_DAYS = 14;
 
 type HabitListItemProps = {
     habit: Habit;

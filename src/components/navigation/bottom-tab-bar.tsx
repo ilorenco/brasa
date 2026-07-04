@@ -2,7 +2,7 @@ import type { BottomTabBarProps } from 'expo-router/js-tabs';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { type IoniconName, TabItem } from '@/components/tab-item';
+import { type IoniconName, TabItem } from '@/components/navigation/tab-item';
 
 type TabNavigation = BottomTabBarProps['navigation'];
 type TabRoute = BottomTabBarProps['state']['routes'][number];

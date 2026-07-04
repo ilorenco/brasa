@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { HeatCell } from '@/components/heat-cell';
+import { HeatCell } from '@/components/habit/heat-cell';
 import type { HeatLevel } from '@/types/habit';
 
 type ConstancyStripProps = {

@@ -1,7 +1,8 @@
 import { randomUUID } from 'expo-crypto';
 import { createContext, type ReactNode, use, useCallback, useMemo, useState } from 'react';
 
-import { CONSTANCY_GRID_DAYS, toggleTodayHeat } from '@/lib/constancy';
+import { CONSTANCY_GRID_DAYS } from '@/constants/constancy';
+import { toggleTodayHeat } from '@/lib/constancy';
 import { mockHabits } from '@/mocks/mock-habits';
 import type { Habit, HeatLevel } from '@/types/habit';
 

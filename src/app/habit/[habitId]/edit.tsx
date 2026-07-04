@@ -3,12 +3,12 @@ import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
-import { ActionRow } from '@/components/action-row';
-import { BackLink } from '@/components/back-link';
-import { FormField } from '@/components/form-field';
-import { FormInput } from '@/components/form-input';
-import { PrimaryButton } from '@/components/primary-button';
-import { Screen } from '@/components/screen';
+import { ActionRow } from '@/components/ui/action-row';
+import { BackLink } from '@/components/ui/back-link';
+import { FormField } from '@/components/ui/form-field';
+import { FormInput } from '@/components/ui/form-input';
+import { PrimaryButton } from '@/components/ui/primary-button';
+import { Screen } from '@/components/ui/screen';
 import { useConfirm } from '@/contexts/confirm-context';
 import { useHabits } from '@/contexts/habits-context';
 import { habitFormSchema, type HabitFormValues } from '@/lib/habit-form-schema';

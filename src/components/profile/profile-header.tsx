@@ -1,7 +1,7 @@
 import { Pressable, Text, View } from 'react-native';
 
-import { AvatarBadge } from '@/components/avatar-badge';
-import { SeededAvatar } from '@/components/seeded-avatar';
+import { AvatarBadge } from '@/components/profile/avatar-badge';
+import { SeededAvatar } from '@/components/profile/seeded-avatar';
 import { formatSinceLabel } from '@/lib/date-labels';
 import type { Profile } from '@/types/profile';
 

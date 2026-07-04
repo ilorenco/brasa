@@ -1,9 +1,9 @@
 import { Text } from 'react-native';
 
-import { ArchivedHabitItem } from '@/components/archived-habit-item';
-import { BackLink } from '@/components/back-link';
-import { EmptyState } from '@/components/empty-state';
-import { Screen } from '@/components/screen';
+import { ArchivedHabitItem } from '@/components/habit/archived-habit-item';
+import { BackLink } from '@/components/ui/back-link';
+import { EmptyState } from '@/components/ui/empty-state';
+import { Screen } from '@/components/ui/screen';
 import { useHabits } from '@/contexts/habits-context';
 
 export default function ArchivedHabitsScreen() {

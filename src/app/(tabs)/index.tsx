@@ -1,10 +1,10 @@
 import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 
-import { EmptyState } from '@/components/empty-state';
-import { HabitCard } from '@/components/habit-card';
-import { PrimaryButton } from '@/components/primary-button';
-import { Screen } from '@/components/screen';
+import { HabitCard } from '@/components/habit/habit-card';
+import { EmptyState } from '@/components/ui/empty-state';
+import { PrimaryButton } from '@/components/ui/primary-button';
+import { Screen } from '@/components/ui/screen';
 import { useHabits } from '@/contexts/habits-context';
 import { useProfile } from '@/contexts/profile-context';
 import { useNow } from '@/hooks/use-now';

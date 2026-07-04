@@ -1,13 +1,14 @@
 import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 
-import { ProfileHeader } from '@/components/profile-header';
-import { Screen } from '@/components/screen';
-import { SettingsSection } from '@/components/settings-section';
-import { StatCard } from '@/components/stat-card';
+import { ProfileHeader } from '@/components/profile/profile-header';
+import { Screen } from '@/components/ui/screen';
+import { SettingsSection } from '@/components/ui/settings-section';
+import { StatCard } from '@/components/ui/stat-card';
+import { ADHERENCE_WINDOW_DAYS } from '@/constants/constancy';
 import { useHabits } from '@/contexts/habits-context';
 import { useProfile } from '@/contexts/profile-context';
-import { ADHERENCE_WINDOW_DAYS, bestConstancyDays, overallAdherencePercent } from '@/lib/constancy';
+import { bestConstancyDays, overallAdherencePercent } from '@/lib/constancy';
 
 export default function YouScreen() {
     const router = useRouter();

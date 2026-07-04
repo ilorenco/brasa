@@ -1,6 +1,6 @@
 import { createContext, type ReactNode, use, useCallback, useMemo, useState } from 'react';
 
-import { ConfirmDialog } from '@/components/confirm-dialog';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
 
 type ConfirmRequest = {
     title: string;

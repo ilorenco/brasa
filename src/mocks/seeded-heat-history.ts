@@ -1,4 +1,5 @@
-import { CONSTANCY_GRID_DAYS, nextHeatLevel } from '@/lib/constancy';
+import { CONSTANCY_GRID_DAYS } from '@/constants/constancy';
+import { nextHeatLevel } from '@/lib/constancy';
 import type { HeatLevel } from '@/types/habit';
 
 type SeededHeatHistoryInput = {

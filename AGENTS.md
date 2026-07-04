@@ -23,11 +23,13 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Event handlers are named `handle<Subject><Event>` (`handleTabPress`), even though the prop stays `on<Event>` (`onPress={handleTabPress}`).
 - File names in **kebab-case** (`habit-card.tsx`, `mock-habits.ts`), even for components — the exported symbol stays PascalCase/camelCase.
 - Code identifiers (functions, variables, components, types) in **English** (`TodayScreen`, `doneCount`). Only user-facing copy stays in Portuguese.
-- Import internal modules via the `@/` alias (`@/components/bottom-tab-bar`), not relative `../../` paths. Configured in `tsconfig.json` (`@/*` → `./src/*`).
+- Import internal modules via the `@/` alias (`@/components/navigation/bottom-tab-bar`), not relative `../../` paths — even between files in the same folder. Configured in `tsconfig.json` (`@/*` → `./src/*`).
 - Omit braces for single-statement `if`/`for`/`while` (`if (!tab) return null;`), not a 3-line braced block. Use braces only for blocks with multiple statements. Enforced (with autofix) by ESLint `curly: ['error', 'multi']`.
 - Small, single-purpose functions and components. Extract when a block earns a name, not before.
 - Once a hook or pure helper earns a name, it gets its own file — even with a single consumer: custom hooks in `src/hooks/` (`use-now.ts`), pure functions in `src/lib/` (`date-labels.ts`), React contexts (provider + consumer hook together) in `src/contexts/` (`habits-context.tsx`). Screens keep only state, handlers and JSX.
 - Domain types in `src/types/` (`habit.ts`); mock data + seed generators in `src/mocks/` — that folder is disposable, so permanent code must only import it at the data entry point (`habits-context`), never from components or `src/lib/`.
+- Cross-cutting domain constants (referenced across screens/lib) live in `src/constants/` (`constancy.ts`); constants local to a single file stay co-located with it.
+- Components are grouped by purpose under `src/components/`: `ui/` (generic, domain-agnostic primitives — buttons, form fields, cards), `habit/`, `profile/` (domain-specific), and `navigation/`. A component earns a domain folder when it's tied to that domain's data/copy; otherwise it's `ui/`.
 - Prefer declarative code: extract presentational pieces (e.g. a list-item component) so the parent reads as a mapping over data, not a wall of inline JSX + logic.
 - Only name a function `use*` if it actually calls React hooks. Logic that just transforms its inputs stays a plain pure function — clearer intent and easier to test than a "fake hook".
 - Match the surrounding code's style, naming and patterns before introducing new ones.

@@ -1,9 +1,5 @@
 import type { HeatLevel } from '@/types/habit';
 
-export const CONSTANCY_WEEKS = 17;
-export const CONSTANCY_GRID_DAYS = CONSTANCY_WEEKS * 7;
-export const ADHERENCE_WINDOW_DAYS = 28;
-
 // O calor de hoje acumula sobre o de ontem — modelo perdoador: nunca "zera",
 // só esfria gradualmente; um retorno após falta já começa morno.
 const warmedUpLevels: Record<HeatLevel, HeatLevel> = { 0: 1, 1: 2, 2: 3, 3: 4, 4: 4 };

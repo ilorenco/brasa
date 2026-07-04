@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 
-import { HeatCell } from '@/components/heat-cell';
+import { HeatCell } from '@/components/habit/heat-cell';
+import { CONSTANCY_WEEKS } from '@/constants/constancy';
 import { chunk } from '@/lib/chunk';
-import { CONSTANCY_WEEKS } from '@/lib/constancy';
 import type { HeatLevel } from '@/types/habit';
 
 type ConstancyGridProps = {
