@@ -2,6 +2,7 @@ import type { HeatLevel } from '@/types/habit';
 
 export const CONSTANCY_WEEKS = 17;
 export const CONSTANCY_GRID_DAYS = CONSTANCY_WEEKS * 7;
+export const ADHERENCE_WINDOW_DAYS = 28;
 
 // O calor de hoje acumula sobre o de ontem — modelo perdoador: nunca "zera",
 // só esfria gradualmente; um retorno após falta já começa morno.
@@ -31,4 +32,24 @@ export function adherencePercent(heatHistory: HeatLevel[], lastDays: number): nu
     if (windowLevels.length === 0) return 0;
     const doneDaysCount = windowLevels.filter((level) => level > 0).length;
     return Math.round((doneDaysCount / windowLevels.length) * 100);
+}
+
+// Agrega os dias crus (feitos / janela) em vez de tirar média dos
+// percentuais já arredondados — evita erro de arredondamento duplo.
+export function overallAdherencePercent(heatHistories: HeatLevel[][], lastDays: number): number {
+    const windowsLevels = heatHistories.map((heatHistory) => heatHistory.slice(-lastDays));
+    const totalDays = windowsLevels.reduce((sum, windowLevels) => sum + windowLevels.length, 0);
+    if (totalDays === 0) return 0;
+    const doneDays = windowsLevels.reduce(
+        (sum, windowLevels) => sum + windowLevels.filter((level) => level > 0).length,
+        0
+    );
+    return Math.round((doneDays / totalDays) * 100);
+}
+
+export function bestConstancyDays(heatHistories: HeatLevel[][]): number {
+    return heatHistories.reduce(
+        (best, heatHistory) => Math.max(best, countConstancyDays(heatHistory)),
+        0
+    );
 }
