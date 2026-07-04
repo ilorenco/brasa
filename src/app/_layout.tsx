@@ -19,6 +19,7 @@ import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { HabitsProvider } from '@/contexts/habits-context';
+import { ProfileProvider } from '@/contexts/profile-context';
 
 // Mantém a splash na tela até as fontes carregarem.
 SplashScreen.preventAutoHideAsync();
@@ -45,9 +46,11 @@ export default function RootLayout() {
     return (
         <SafeAreaProvider>
             <HabitsProvider>
-                <Stack screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
-                </Stack>
+                <ProfileProvider>
+                    <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
+                    </Stack>
+                </ProfileProvider>
             </HabitsProvider>
         </SafeAreaProvider>
     );

@@ -51,6 +51,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Forms: **react-hook-form + zod** (`zodResolver` from `@hookform/resolvers/zod`), fields wired via `Controller`. Zod schemas live in `src/lib/` (`habit-form-schema.ts`), value types derived with `z.infer`. No hand-rolled `useState` forms.
 - Component style variants: **cva** (class-variance-authority) — declare variants in a `cva()` map (registered in `tailwindFunctions` so Prettier sorts the classes), derive prop types with `VariantProps`. No conditional className concatenation.
 - Native UI/effects: `@expo/ui`, `expo-symbols`, `expo-glass-effect` when they fit the design.
+- Avatars: **DiceBear** (`@dicebear/core` + `@dicebear/collection`) rendered via `SvgXml` (react-native-svg) — generated locally from a seed, no photo upload or personal images (privacy by design / LGPD). Brand palette + style live in `src/lib/avatar-svg.ts`.
 - Modern JS/TS: `async/await` over `.then()` chains, optional chaining `?.`, nullish coalescing `??`, destructuring.
 - Respect safe areas via `react-native-safe-area-context`.
 - Code must pass `expo lint` + Prettier (enforced by lint-staged/husky) — don't fight the formatter.
