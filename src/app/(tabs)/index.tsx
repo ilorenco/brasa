@@ -3,12 +3,15 @@ import { Text, View } from 'react-native';
 import { HabitCard } from '@/components/habit-card';
 import { Screen } from '@/components/screen';
 import { useHabits } from '@/contexts/habits-context';
+import { useProfile } from '@/contexts/profile-context';
 import { useNow } from '@/hooks/use-now';
 import { isHabitDoneToday } from '@/lib/constancy';
 import { formatDateLabel, getGreeting } from '@/lib/date-labels';
+import { firstName } from '@/lib/first-name';
 
 export default function TodayScreen() {
     const { habits, toggleHabitDone } = useHabits();
+    const { profile } = useProfile();
     const now = useNow();
     const activeHabits = habits.filter((habit) => !habit.isArchived);
     const doneCount = activeHabits.filter((habit) => isHabitDoneToday(habit.heatHistory)).length;
@@ -20,7 +23,7 @@ export default function TodayScreen() {
                     {formatDateLabel(now)}
                 </Text>
                 <Text className="mt-0.5 font-display text-2xl text-ink">
-                    {getGreeting(now.getHours())}
+                    {getGreeting(now.getHours())}, {firstName(profile.name)}
                 </Text>
                 <Text className="mt-1 font-body text-[13px] text-ink-soft">
                     <Text className="font-body-semibold text-warm-deep">
