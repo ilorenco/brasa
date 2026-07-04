@@ -23,6 +23,17 @@ const colors = {
         surface: '#FFFCF6', // superfície de item concluído (calor sutil sobre card)
     },
 
+    // Momento de recompensa (RF05) — superfície âmbar imersiva ("o calor acende")
+    reward: {
+        from: '#F6C868', // topo do gradiente
+        via: '#EBA63C', // meio (âmbar principal)
+        to: '#D9912B', // base
+        ink: '#3A2606', // texto e superfícies escuras sobre o âmbar
+        cream: '#FBE6BE', // texto sobre superfície escura
+        glow: '#FFF4DC', // halo atrás do check
+        cell: '#FFF7E6', // célula "nova" (+1 de hoje) na grade
+    },
+
     // Slate (âncoras / elementos estruturais de destaque)
     slate: {
         DEFAULT: '#3D5A80',
