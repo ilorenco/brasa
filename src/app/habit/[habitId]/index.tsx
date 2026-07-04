@@ -1,5 +1,6 @@
-import { Redirect, useLocalSearchParams } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
+import { Pressable, Text, View } from 'react-native';
 
 import { BackLink } from '@/components/back-link';
 import { ConstancyGrid } from '@/components/constancy-grid';
@@ -17,6 +18,7 @@ import {
 } from '@/lib/constancy';
 
 export default function HabitDetailScreen() {
+    const router = useRouter();
     const { habitId } = useLocalSearchParams<{ habitId: string }>();
     const { habits } = useHabits();
     const habit = habits.find((candidate) => candidate.id === habitId);
@@ -26,12 +28,26 @@ export default function HabitDetailScreen() {
     const constancyDays = countConstancyDays(habit.heatHistory);
     const recentAdherence = adherencePercent(habit.heatHistory, ADHERENCE_WINDOW_DAYS);
 
+    function handleEditPress() {
+        router.push(`/habit/${habitId}/edit`);
+    }
+
     return (
         <Screen>
             <BackLink label="Hábito" />
-            <Text className="font-display text-[21px] tracking-[-0.01em] text-ink">
-                {habit.name}
-            </Text>
+            <View className="flex-row items-center justify-between gap-3">
+                <Text className="flex-1 font-display text-[21px] tracking-[-0.01em] text-ink">
+                    {habit.name}
+                </Text>
+                <Pressable
+                    onPress={handleEditPress}
+                    className="h-[34px] w-[34px] items-center justify-center rounded-[10px] bg-slate-soft active:opacity-80"
+                    accessibilityRole="button"
+                    accessibilityLabel="Editar hábito"
+                >
+                    <Ionicons name="pencil" size={15} className="text-slate" />
+                </Pressable>
+            </View>
             <HabitAnchor anchor={habit.anchor} />
             <View className="mt-4 flex-row gap-2.5">
                 <StatCard value={String(constancyDays)} label="dias mantidos" tone="warm" />

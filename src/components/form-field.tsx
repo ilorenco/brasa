@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 type FormFieldProps = {
     label: string;
-    helper: string;
+    helper?: string;
     children: ReactNode;
 };
 
@@ -14,7 +14,9 @@ export function FormField({ label, helper, children }: FormFieldProps) {
                 {label}
             </Text>
             {children}
-            <Text className="mt-2 font-body text-xs leading-[17px] text-muted">{helper}</Text>
+            {helper && (
+                <Text className="mt-2 font-body text-xs leading-[17px] text-muted">{helper}</Text>
+            )}
         </View>
     );
 }
