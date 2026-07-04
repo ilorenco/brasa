@@ -48,7 +48,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 - Routing: **Expo Router** (file-based, `app/` dir). No manual React Navigation setup.
 - React 19: use the modern APIs (Suspense, `use`, Actions) where they fit; no legacy lifecycle patterns.
-- Animations: **Reanimated 4** + `react-native-worklets`. Prefer Reanimated over the Animated API.
+- Animations: **Reanimated 4** + `react-native-worklets`. Prefer Reanimated over the Animated API. Never put a NativeWind `className` directly on an `Animated.*` component — when the entering/layout animation settles it overwrites the `style` prop NativeWind injected, silently dropping the classes (margins/bg/font collapse). Instead use `Animated.View` as a bare animation wrapper (only `entering`/`style`) around a plain `View`/`Text` that carries the `className`.
 - Gestures: `react-native-gesture-handler`, not the legacy PanResponder.
 - Images: **expo-image** (`Image` from `expo-image`), not RN's `Image`.
 - Forms: **react-hook-form + zod** (`zodResolver` from `@hookform/resolvers/zod`), fields wired via `Controller`. Zod schemas live in `src/lib/` (`habit-form-schema.ts`), value types derived with `z.infer`. No hand-rolled `useState` forms.

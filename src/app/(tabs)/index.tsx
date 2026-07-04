@@ -11,6 +11,7 @@ import { useNow } from '@/hooks/use-now';
 import { isHabitDoneToday } from '@/lib/constancy';
 import { formatDateLabel, getGreeting } from '@/lib/date-labels';
 import { firstName } from '@/lib/first-name';
+import type { Habit } from '@/types/habit';
 
 export default function TodayScreen() {
     const router = useRouter();
@@ -22,6 +23,13 @@ export default function TodayScreen() {
 
     function handleCreatePress() {
         router.push('/create-habit');
+    }
+
+    // Marcar feito fecha o loop com a recompensa (RF05); desmarcar é silencioso.
+    function handleToggle(habit: Habit) {
+        const wasDone = isHabitDoneToday(habit.heatHistory);
+        toggleHabitDone(habit.id);
+        if (!wasDone) router.push({ pathname: '/reward/[habitId]', params: { habitId: habit.id } });
     }
 
     return (
@@ -57,11 +65,7 @@ export default function TodayScreen() {
                 />
             ) : (
                 activeHabits.map((habit) => (
-                    <HabitCard
-                        key={habit.id}
-                        habit={habit}
-                        onToggle={() => toggleHabitDone(habit.id)}
-                    />
+                    <HabitCard key={habit.id} habit={habit} onToggle={() => handleToggle(habit)} />
                 ))
             )}
         </Screen>

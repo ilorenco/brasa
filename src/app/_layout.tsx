@@ -51,6 +51,10 @@ export default function RootLayout() {
                     <ConfirmProvider>
                         <Stack screenOptions={{ headerShown: false }}>
                             <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
+                            <Stack.Screen
+                                name="reward/[habitId]"
+                                options={{ presentation: 'fullScreenModal', animation: 'fade' }}
+                            />
                         </Stack>
                     </ConfirmProvider>
                 </ProfileProvider>
