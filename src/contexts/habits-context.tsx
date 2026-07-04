@@ -17,6 +17,7 @@ type HabitsContextValue = {
     createHabit: (habitDraft: HabitDraft) => void;
     updateHabit: (habitId: string, habitDraft: HabitDraft) => void;
     archiveHabit: (habitId: string) => void;
+    unarchiveHabit: (habitId: string) => void;
     deleteHabit: (habitId: string) => void;
 };
 
@@ -62,13 +63,37 @@ export function HabitsProvider({ children }: { children: ReactNode }) {
         );
     }, []);
 
+    const unarchiveHabit = useCallback((habitId: string) => {
+        setHabits((currentHabits) =>
+            currentHabits.map((habit) =>
+                habit.id === habitId ? { ...habit, isArchived: false } : habit
+            )
+        );
+    }, []);
+
     const deleteHabit = useCallback((habitId: string) => {
         setHabits((currentHabits) => currentHabits.filter((habit) => habit.id !== habitId));
     }, []);
 
     const habitsContextValue = useMemo(
-        () => ({ habits, toggleHabitDone, createHabit, updateHabit, archiveHabit, deleteHabit }),
-        [habits, toggleHabitDone, createHabit, updateHabit, archiveHabit, deleteHabit]
+        () => ({
+            habits,
+            toggleHabitDone,
+            createHabit,
+            updateHabit,
+            archiveHabit,
+            unarchiveHabit,
+            deleteHabit,
+        }),
+        [
+            habits,
+            toggleHabitDone,
+            createHabit,
+            updateHabit,
+            archiveHabit,
+            unarchiveHabit,
+            deleteHabit,
+        ]
     );
 
     return <HabitsContext.Provider value={habitsContextValue}>{children}</HabitsContext.Provider>;
