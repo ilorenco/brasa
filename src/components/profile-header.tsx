@@ -7,19 +7,19 @@ import type { Profile } from '@/types/profile';
 
 type ProfileHeaderProps = {
     profile: Profile;
-    onAvatarPress: () => void;
+    onEditPress: () => void;
 };
 
-export function ProfileHeader({ profile, onAvatarPress }: ProfileHeaderProps) {
+export function ProfileHeader({ profile, onEditPress }: ProfileHeaderProps) {
     const { name, avatarSeed, identityPhrase, memberSince } = profile;
 
     return (
         <View className="mb-[18px] mt-1.5 items-center">
             <Pressable
-                onPress={onAvatarPress}
+                onPress={onEditPress}
                 className="mb-3 active:opacity-80"
                 accessibilityRole="button"
-                accessibilityLabel="Editar avatar"
+                accessibilityLabel="Editar perfil"
             >
                 <SeededAvatar seed={avatarSeed} size={78} />
                 <AvatarBadge icon="pencil" />

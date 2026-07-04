@@ -19,8 +19,8 @@ export default function YouScreen() {
     const bestConstancy = bestConstancyDays(activeHeatHistories);
     const overallAdherence = overallAdherencePercent(activeHeatHistories, ADHERENCE_WINDOW_DAYS);
 
-    function handleAvatarPress() {
-        router.push('/choose-avatar');
+    function handleEditProfilePress() {
+        router.push('/edit-profile');
     }
 
     return (
@@ -28,7 +28,7 @@ export default function YouScreen() {
             <Text className="font-mono-medium text-[10.5px] uppercase tracking-[0.12em] text-slate">
                 Você
             </Text>
-            <ProfileHeader profile={profile} onAvatarPress={handleAvatarPress} />
+            <ProfileHeader profile={profile} onEditPress={handleEditProfilePress} />
             <View className="mb-[18px] flex-row gap-2">
                 <StatCard
                     layout="glance"
