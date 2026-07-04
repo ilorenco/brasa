@@ -5,7 +5,7 @@ import { CONSTANCY_GRID_DAYS, toggleTodayHeat } from '@/lib/constancy';
 import { mockHabits } from '@/mocks/mock-habits';
 import type { Habit, HeatLevel } from '@/types/habit';
 
-type NewHabit = {
+type HabitDraft = {
     name: string;
     anchor: string;
     obstaclePlan?: string;
@@ -14,7 +14,10 @@ type NewHabit = {
 type HabitsContextValue = {
     habits: Habit[];
     toggleHabitDone: (habitId: string) => void;
-    createHabit: (newHabit: NewHabit) => void;
+    createHabit: (habitDraft: HabitDraft) => void;
+    updateHabit: (habitId: string, habitDraft: HabitDraft) => void;
+    archiveHabit: (habitId: string) => void;
+    deleteHabit: (habitId: string) => void;
 };
 
 const HabitsContext = createContext<HabitsContextValue | null>(null);
@@ -32,20 +35,40 @@ export function HabitsProvider({ children }: { children: ReactNode }) {
         );
     }, []);
 
-    const createHabit = useCallback((newHabit: NewHabit) => {
+    const createHabit = useCallback((habitDraft: HabitDraft) => {
         const coldHistory: HeatLevel[] = Array(CONSTANCY_GRID_DAYS).fill(0);
         const createdHabit: Habit = {
             id: randomUUID(),
-            ...newHabit,
+            ...habitDraft,
             isArchived: false,
             heatHistory: coldHistory,
         };
         setHabits((currentHabits) => [...currentHabits, createdHabit]);
     }, []);
 
+    const updateHabit = useCallback((habitId: string, habitDraft: HabitDraft) => {
+        setHabits((currentHabits) =>
+            currentHabits.map((habit) =>
+                habit.id === habitId ? { ...habit, ...habitDraft } : habit
+            )
+        );
+    }, []);
+
+    const archiveHabit = useCallback((habitId: string) => {
+        setHabits((currentHabits) =>
+            currentHabits.map((habit) =>
+                habit.id === habitId ? { ...habit, isArchived: true } : habit
+            )
+        );
+    }, []);
+
+    const deleteHabit = useCallback((habitId: string) => {
+        setHabits((currentHabits) => currentHabits.filter((habit) => habit.id !== habitId));
+    }, []);
+
     const habitsContextValue = useMemo(
-        () => ({ habits, toggleHabitDone, createHabit }),
-        [habits, toggleHabitDone, createHabit]
+        () => ({ habits, toggleHabitDone, createHabit, updateHabit, archiveHabit, deleteHabit }),
+        [habits, toggleHabitDone, createHabit, updateHabit, archiveHabit, deleteHabit]
     );
 
     return <HabitsContext.Provider value={habitsContextValue}>{children}</HabitsContext.Provider>;
