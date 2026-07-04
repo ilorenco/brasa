@@ -1,6 +1,9 @@
+import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 
+import { EmptyState } from '@/components/empty-state';
 import { HabitCard } from '@/components/habit-card';
+import { PrimaryButton } from '@/components/primary-button';
 import { Screen } from '@/components/screen';
 import { useHabits } from '@/contexts/habits-context';
 import { useProfile } from '@/contexts/profile-context';
@@ -10,11 +13,16 @@ import { formatDateLabel, getGreeting } from '@/lib/date-labels';
 import { firstName } from '@/lib/first-name';
 
 export default function TodayScreen() {
+    const router = useRouter();
     const { habits, toggleHabitDone } = useHabits();
     const { profile } = useProfile();
     const now = useNow();
     const activeHabits = habits.filter((habit) => !habit.isArchived);
     const doneCount = activeHabits.filter((habit) => isHabitDoneToday(habit.heatHistory)).length;
+
+    function handleCreatePress() {
+        router.push('/create-habit');
+    }
 
     return (
         <Screen>
@@ -25,20 +33,37 @@ export default function TodayScreen() {
                 <Text className="mt-0.5 font-display text-2xl text-ink">
                     {getGreeting(now.getHours())}, {firstName(profile.name)}
                 </Text>
-                <Text className="mt-1 font-body text-[13px] text-ink-soft">
-                    <Text className="font-body-semibold text-warm-deep">
-                        {doneCount} de {activeHabits.length}
+                {activeHabits.length > 0 && (
+                    <Text className="mt-1 font-body text-[13px] text-ink-soft">
+                        <Text className="font-body-semibold text-warm-deep">
+                            {doneCount} de {activeHabits.length}
+                        </Text>
+                        {' hoje · sem pressa'}
                     </Text>
-                    {' hoje · sem pressa'}
-                </Text>
+                )}
             </View>
-            {activeHabits.map((habit) => (
-                <HabitCard
-                    key={habit.id}
-                    habit={habit}
-                    onToggle={() => toggleHabitDone(habit.id)}
+            {activeHabits.length === 0 ? (
+                <EmptyState
+                    icon="leaf-outline"
+                    title="Seu campo está calmo"
+                    description="Nenhum hábito para hoje ainda. Escolha um gesto minúsculo e deixe o calor se acumular."
+                    action={
+                        <PrimaryButton
+                            label="Criar hábito"
+                            onPress={handleCreatePress}
+                            size="compact"
+                        />
+                    }
                 />
-            ))}
+            ) : (
+                activeHabits.map((habit) => (
+                    <HabitCard
+                        key={habit.id}
+                        habit={habit}
+                        onToggle={() => toggleHabitDone(habit.id)}
+                    />
+                ))
+            )}
         </Screen>
     );
 }
