@@ -18,6 +18,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ConfirmProvider } from '@/contexts/confirm-context';
 import { HabitsProvider } from '@/contexts/habits-context';
 import { ProfileProvider } from '@/contexts/profile-context';
 
@@ -47,9 +48,11 @@ export default function RootLayout() {
         <SafeAreaProvider>
             <HabitsProvider>
                 <ProfileProvider>
-                    <Stack screenOptions={{ headerShown: false }}>
-                        <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
-                    </Stack>
+                    <ConfirmProvider>
+                        <Stack screenOptions={{ headerShown: false }}>
+                            <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
+                        </Stack>
+                    </ConfirmProvider>
                 </ProfileProvider>
             </HabitsProvider>
         </SafeAreaProvider>
