@@ -39,6 +39,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - TypeScript everywhere; type props explicitly, avoid `any`.
 - Styling via NativeWind (Tailwind classes), consistent with the existing design system (cores/fontes).
 - Use Expo SDK APIs and modules over bare React Native / third-party libs when an equivalent exists.
+- Solve problems the way the React Native/Expo community does: when there's an established ecosystem standard, adopt it early instead of hand-rolling (RHF + zod, cva, DiceBear are examples of this) — and register the choice here. When the community consensus is that no lib is needed (one-liners like deriving a first name), a small pure helper in `src/lib/` **is** the standard; don't add a dependency to avoid one line.
 - Follow the Expo v57 docs (already referenced above) — don't rely on outdated APIs.
 
 # Modern stack (use these, not the old way)
@@ -51,7 +52,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Forms: **react-hook-form + zod** (`zodResolver` from `@hookform/resolvers/zod`), fields wired via `Controller`. Zod schemas live in `src/lib/` (`habit-form-schema.ts`), value types derived with `z.infer`. No hand-rolled `useState` forms.
 - Component style variants: **cva** (class-variance-authority) — declare variants in a `cva()` map (registered in `tailwindFunctions` so Prettier sorts the classes), derive prop types with `VariantProps`. No conditional className concatenation.
 - Native UI/effects: `@expo/ui`, `expo-symbols`, `expo-glass-effect` when they fit the design.
-- Avatars: **DiceBear** (`@dicebear/core` + `@dicebear/collection`) rendered via `SvgXml` (react-native-svg) — generated locally from a seed, no photo upload or personal images (privacy by design / LGPD). Brand palette + style live in `src/lib/avatar-svg.ts`.
+- Avatars: **DiceBear** (`@dicebear/core` + the style package, `@dicebear/thumbs` — never the `@dicebear/collection` barrel, it drags all 31 styles into the bundle) rendered via `SvgXml` (react-native-svg) — generated locally from a seed, no photo upload or personal images (privacy by design / LGPD). Brand palette + style live in `src/lib/avatar-svg.ts`.
 - Modern JS/TS: `async/await` over `.then()` chains, optional chaining `?.`, nullish coalescing `??`, destructuring.
 - Respect safe areas via `react-native-safe-area-context`.
 - Code must pass `expo lint` + Prettier (enforced by lint-staged/husky) — don't fight the formatter.
