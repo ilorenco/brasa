@@ -29,7 +29,12 @@ const colors = {
         soft: '#E7ECF2',
     },
 
-    danger: '#B23B3B', // ações destrutivas
+    // Ações destrutivas
+    danger: {
+        DEFAULT: '#B23B3B',
+        line: '#F0DADA', // borda de linha destrutiva
+        soft: '#F7E7E7', // fundo do badge de ícone destrutivo
+    },
 };
 
 module.exports = { colors };
