@@ -1,17 +1,19 @@
 import { useRouter } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { ProfileHeader } from '@/components/profile/profile-header';
 import { Screen } from '@/components/ui/screen';
 import { SettingsSection } from '@/components/ui/settings-section';
 import { StatCard } from '@/components/ui/stat-card';
 import { ADHERENCE_WINDOW_DAYS } from '@/constants/constancy';
+import { useAuth } from '@/contexts/auth-context';
 import { useHabits } from '@/contexts/habits-context';
 import { useProfile } from '@/contexts/profile-context';
 import { bestConstancyDays, overallAdherencePercent } from '@/lib/constancy';
 
 export default function YouScreen() {
     const router = useRouter();
+    const { signOut } = useAuth();
     const { habits } = useHabits();
     const { profile } = useProfile();
 
@@ -68,9 +70,15 @@ export default function YouScreen() {
                     },
                 ]}
             />
-            <Text className="mt-3 py-2 text-center font-mono-bold text-[12px] text-danger">
-                Sair
-            </Text>
+            <Pressable
+                onPress={signOut}
+                className="mt-3 active:opacity-60"
+                accessibilityRole="button"
+            >
+                <Text className="py-2 text-center font-mono-bold text-[12px] text-danger">
+                    Sair
+                </Text>
+            </Pressable>
         </Screen>
     );
 }

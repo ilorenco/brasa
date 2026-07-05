@@ -18,6 +18,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { AuthProvider, useAuth } from '@/contexts/auth-context';
 import { ConfirmProvider } from '@/contexts/confirm-context';
 import { HabitsProvider } from '@/contexts/habits-context';
 import { ProfileProvider } from '@/contexts/profile-context';
@@ -46,19 +47,32 @@ export default function RootLayout() {
 
     return (
         <SafeAreaProvider>
-            <HabitsProvider>
-                <ProfileProvider>
-                    <ConfirmProvider>
-                        <Stack screenOptions={{ headerShown: false }}>
-                            <Stack.Screen name="create-habit" options={{ presentation: 'modal' }} />
-                            <Stack.Screen
-                                name="reward/[habitId]"
-                                options={{ presentation: 'fullScreenModal', animation: 'fade' }}
-                            />
-                        </Stack>
-                    </ConfirmProvider>
-                </ProfileProvider>
-            </HabitsProvider>
+            <AuthProvider>
+                <HabitsProvider>
+                    <ProfileProvider>
+                        <ConfirmProvider>
+                            <RootStack />
+                        </ConfirmProvider>
+                    </ProfileProvider>
+                </HabitsProvider>
+            </AuthProvider>
         </SafeAreaProvider>
+    );
+}
+
+function RootStack() {
+    const { isSignedIn } = useAuth();
+
+    return (
+        <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Protected guard={!isSignedIn}>
+                <Stack.Screen name="(auth)/welcome" />
+            </Stack.Protected>
+            {/* Toda tela autenticada vive no grupo (app)/ — proteção por pasta,
+                sem lista de rotas pra manter em dia. */}
+            <Stack.Protected guard={isSignedIn}>
+                <Stack.Screen name="(app)" />
+            </Stack.Protected>
+        </Stack>
     );
 }
