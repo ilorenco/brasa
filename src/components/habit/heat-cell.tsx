@@ -15,6 +15,7 @@ const heatCell = cva('rounded-[2.5px]', {
         size: {
             fluid: 'aspect-square flex-1',
             legend: 'h-[11px] w-[11px]',
+            brand: 'h-2.5 w-2.5',
         },
     },
     defaultVariants: { size: 'fluid' },

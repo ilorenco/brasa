@@ -1,0 +1,19 @@
+<!-- Gerado por scripts/generate-brand-mark-svg.js a partir de src/theme/brand-mark.js —
+     não edite à mão: mude o desenho lá e rode `npm run generate:brand`. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 38">
+    <rect x="0" y="0" width="10" height="10" rx="3" fill="#E4E8EC" />
+    <rect x="14" y="0" width="10" height="10" rx="3" fill="#F6CC78" />
+    <rect x="28" y="0" width="10" height="10" rx="3" fill="#EBA63C" />
+    <rect x="42" y="0" width="10" height="10" rx="3" fill="#E4E8EC" />
+    <rect x="56" y="0" width="10" height="10" rx="3" fill="#F6CC78" />
+    <rect x="0" y="14" width="10" height="10" rx="3" fill="#F6CC78" />
+    <rect x="14" y="14" width="10" height="10" rx="3" fill="#C97E1E" />
+    <rect x="28" y="14" width="10" height="10" rx="3" fill="#EBA63C" />
+    <rect x="42" y="14" width="10" height="10" rx="3" fill="#F6CC78" />
+    <rect x="56" y="14" width="10" height="10" rx="3" fill="#E4E8EC" />
+    <rect x="0" y="28" width="10" height="10" rx="3" fill="#EBA63C" />
+    <rect x="14" y="28" width="10" height="10" rx="3" fill="#F6CC78" />
+    <rect x="28" y="28" width="10" height="10" rx="3" fill="#C97E1E" />
+    <rect x="42" y="28" width="10" height="10" rx="3" fill="#EBA63C" />
+    <rect x="56" y="28" width="10" height="10" rx="3" fill="#F6CC78" />
+</svg>

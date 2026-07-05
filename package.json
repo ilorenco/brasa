@@ -63,6 +63,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "format": "prettier --write .",
+    "generate:brand": "node scripts/generate-brand-mark-svg.js",
     "prepare": "husky"
   },
   "lint-staged": {

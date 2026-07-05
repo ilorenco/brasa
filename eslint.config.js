@@ -3,6 +3,7 @@ const { defineConfig } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
 const simpleImportSort = require('eslint-plugin-simple-import-sort');
+const globals = require('globals');
 
 module.exports = defineConfig([
     expoConfig,
@@ -29,6 +30,13 @@ module.exports = defineConfig([
             'import/first': 'error',
             'import/newline-after-import': 'error',
             'import/no-duplicates': 'error',
+        },
+    },
+    {
+        // Scripts de tooling rodam em Node puro (CommonJS), não no bundle do app.
+        files: ['scripts/**/*.js'],
+        languageOptions: {
+            globals: globals.node,
         },
     },
     {
