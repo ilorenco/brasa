@@ -6,7 +6,8 @@ import { BrandMark } from '@/components/ui/brand-mark';
 import { useAuth } from '@/contexts/auth-context';
 
 export default function WelcomeScreen() {
-    const { signIn } = useAuth();
+    // Cadastro (Continuar com...) passa pelo onboarding de identidade; Entrar não.
+    const { signIn, signUp } = useAuth();
 
     return (
         <SafeAreaView className="flex-1 bg-screen" edges={['top', 'bottom']}>
@@ -21,10 +22,10 @@ export default function WelcomeScreen() {
                         label="Continuar com e-mail"
                         icon="at"
                         emphasis="primary"
-                        onPress={signIn}
+                        onPress={signUp}
                     />
-                    <AuthButton label="Continuar com Google" icon="logo-google" onPress={signIn} />
-                    <AuthButton label="Continuar com Apple" icon="logo-apple" onPress={signIn} />
+                    <AuthButton label="Continuar com Google" icon="logo-google" onPress={signUp} />
+                    <AuthButton label="Continuar com Apple" icon="logo-apple" onPress={signUp} />
                 </View>
                 <Text className="mt-4 font-body text-[12.5px] text-slate">
                     Já tem conta?{' '}

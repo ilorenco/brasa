@@ -1,18 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useForm, useWatch } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { FormField } from '@/components/ui/form-field';
 import { FormInput } from '@/components/ui/form-input';
 import { PrimaryButton } from '@/components/ui/primary-button';
+import { ScreenEyebrow } from '@/components/ui/screen-eyebrow';
+import { useAuth } from '@/contexts/auth-context';
 import { useHabits } from '@/contexts/habits-context';
 import { habitFormSchema, type HabitFormValues } from '@/lib/habit-form-schema';
 
 export default function CreateHabitScreen() {
     const router = useRouter();
+    // No onboarding a tela vira o passo "2 de 2", pré-semeada pela identidade.
+    const { origin, suggestedName, suggestedAnchor } = useLocalSearchParams<{
+        origin?: string;
+        suggestedName?: string;
+        suggestedAnchor?: string;
+    }>();
+    const isOnboardingStep = origin === 'onboarding';
+    const { completeOnboarding } = useAuth();
     const { createHabit } = useHabits();
     const {
         control,
@@ -21,7 +31,11 @@ export default function CreateHabitScreen() {
     } = useForm<HabitFormValues>({
         resolver: zodResolver(habitFormSchema),
         mode: 'onChange',
-        defaultValues: { name: '', anchor: '', obstaclePlan: '' },
+        defaultValues: {
+            name: suggestedName ?? '',
+            anchor: suggestedAnchor ?? '',
+            obstaclePlan: '',
+        },
     });
     const [watchedName, watchedAnchor] = useWatch({ control, name: ['name', 'anchor'] });
 
@@ -31,7 +45,12 @@ export default function CreateHabitScreen() {
 
     function handleCreateSubmit({ name, anchor, obstaclePlan }: HabitFormValues) {
         createHabit({ name, anchor, obstaclePlan: obstaclePlan || undefined });
-        router.back();
+        if (isOnboardingStep) {
+            // O flip do guard remove o onboarding do histórico; o replace leva
+            // pro Hoje sem deixar tela órfã embaixo.
+            completeOnboarding();
+            router.replace('/');
+        } else router.back();
     }
 
     return (
@@ -45,19 +64,10 @@ export default function CreateHabitScreen() {
                     contentContainerClassName="pt-4"
                     keyboardShouldPersistTaps="handled"
                 >
-                    <View className="flex-row items-center justify-between">
-                        <Text className="font-mono-medium text-[10.5px] uppercase tracking-[1px] text-slate">
-                            Novo hábito
-                        </Text>
-                        <Pressable
-                            onPress={handleClosePress}
-                            className="active:opacity-60"
-                            accessibilityRole="button"
-                            accessibilityLabel="Fechar"
-                        >
-                            <Ionicons name="close" size={22} className="text-muted" />
-                        </Pressable>
-                    </View>
+                    <ScreenEyebrow
+                        label={isOnboardingStep ? 'Novo hábito · 2 de 2' : 'Novo hábito'}
+                        onClosePress={handleClosePress}
+                    />
                     <Text className="mt-2 font-display text-[25px] leading-tight text-ink">
                         Comece ridiculamente pequeno.
                     </Text>
