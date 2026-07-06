@@ -4,6 +4,7 @@ import { Pressable, Text, View } from 'react-native';
 import { ConstancyStrip } from '@/components/habit/constancy-strip';
 import { HabitAnchor } from '@/components/habit/habit-anchor';
 import { RECENT_HEAT_DAYS } from '@/constants/constancy';
+import { capitalizeFirst } from '@/lib/capitalize-first';
 import { countConstancyDays } from '@/lib/constancy';
 import type { Habit } from '@/types/habit';
 
@@ -29,7 +30,9 @@ export function HabitListItem({ habit }: HabitListItemProps) {
             accessibilityLabel={name}
         >
             <View className="flex-row items-baseline justify-between">
-                <Text className="font-body-semibold text-[14.5px] text-ink">{name}</Text>
+                <Text className="font-body-semibold text-[14.5px] text-ink">
+                    {capitalizeFirst(name)}
+                </Text>
                 <Text className="font-mono-bold text-[11px] text-warm-deep">
                     {constancyDays} {constancyDays === 1 ? 'dia' : 'dias'}
                 </Text>

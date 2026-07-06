@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
 import { HabitAnchor } from '@/components/habit/habit-anchor';
+import { capitalizeFirst } from '@/lib/capitalize-first';
 import { isHabitDoneToday } from '@/lib/constancy';
 import type { Habit } from '@/types/habit';
 
@@ -37,7 +38,7 @@ export function HabitCard({ habit, onToggle }: HabitCardProps) {
                         isDoneToday ? 'text-ink-soft' : 'text-ink'
                     }`}
                 >
-                    {name}
+                    {capitalizeFirst(name)}
                 </Text>
                 {isDoneToday ? (
                     <View className="mt-0.5 flex-row items-center gap-1">

@@ -11,6 +11,7 @@ import { Screen } from '@/components/ui/screen';
 import { StatCard } from '@/components/ui/stat-card';
 import { ADHERENCE_WINDOW_DAYS, CONSTANCY_WEEKS } from '@/constants/constancy';
 import { useHabits } from '@/contexts/habits-context';
+import { capitalizeFirst } from '@/lib/capitalize-first';
 import { adherencePercent, countConstancyDays } from '@/lib/constancy';
 
 export default function HabitDetailScreen() {
@@ -33,7 +34,7 @@ export default function HabitDetailScreen() {
             <BackLink label="Hábito" />
             <View className="flex-row items-center justify-between gap-3">
                 <Text className="flex-1 font-display text-[21px] tracking-[-0.01em] text-ink">
-                    {habit.name}
+                    {capitalizeFirst(habit.name)}
                 </Text>
                 <Pressable
                     onPress={handleEditPress}
