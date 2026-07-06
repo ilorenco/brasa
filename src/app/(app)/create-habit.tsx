@@ -2,11 +2,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useForm, useWatch } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View } from 'react-native';
 
 import { FormField } from '@/components/ui/form-field';
 import { FormInput } from '@/components/ui/form-input';
+import { FormScreen } from '@/components/ui/form-screen';
+import { PrefixedInput } from '@/components/ui/prefixed-input';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { ScreenEyebrow } from '@/components/ui/screen-eyebrow';
 import { useAuth } from '@/contexts/auth-context';
@@ -54,82 +55,66 @@ export default function CreateHabitScreen() {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-screen" edges={['top', 'bottom']}>
-            <KeyboardAvoidingView
-                className="flex-1"
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        <FormScreen
+            footer={
+                <PrimaryButton
+                    label="Criar hábito"
+                    onPress={handleSubmit(handleCreateSubmit)}
+                    disabled={!isValid || isSubmitSuccessful}
+                />
+            }
+        >
+            <ScreenEyebrow
+                label={isOnboardingStep ? 'Novo hábito · 2 de 2' : 'Novo hábito'}
+                onClosePress={handleClosePress}
+            />
+            <Text className="mt-2 font-display text-[25px] leading-tight text-ink">
+                Comece ridiculamente pequeno.
+            </Text>
+            <Text className="mb-5 mt-1 font-body text-[13px] text-ink-soft">
+                Pequeno o bastante para você fazer até num dia ruim.
+            </Text>
+
+            <FormField
+                label="O hábito"
+                helper="Não “ler 30 minutos”. Uma página. Dá pra crescer depois."
             >
-                <ScrollView
-                    className="flex-1 px-5"
-                    contentContainerClassName="pt-4"
-                    keyboardShouldPersistTaps="handled"
-                >
-                    <ScreenEyebrow
-                        label={isOnboardingStep ? 'Novo hábito · 2 de 2' : 'Novo hábito'}
-                        onClosePress={handleClosePress}
-                    />
-                    <Text className="mt-2 font-display text-[25px] leading-tight text-ink">
-                        Comece ridiculamente pequeno.
+                <FormInput control={control} name="name" placeholder="ler 1 página" />
+            </FormField>
+
+            <FormField
+                label="A âncora"
+                helper="Prenda o hábito novo a algo que você já faz todo dia."
+            >
+                <PrefixedInput
+                    prefix="Depois de"
+                    control={control}
+                    name="anchor"
+                    placeholder="tomar meu café"
+                />
+            </FormField>
+
+            <FormField
+                label="O plano B · opcional"
+                helper="Decidir agora o que fazer num dia difícil evita que uma falta vire duas."
+            >
+                <FormInput
+                    control={control}
+                    name="obstaclePlan"
+                    placeholder="se não der, leio antes de dormir"
+                />
+            </FormField>
+
+            {isValid && (
+                <View className="mb-4 flex-row items-start gap-2 rounded-xl border border-warm-1 bg-warm-surface p-3.5">
+                    <Ionicons name="sparkles" size={13} className="mt-0.5 text-warm-deep" />
+                    <Text className="flex-1 font-body text-[12.5px] leading-[18px] text-warm-deep">
+                        Toda vez que{' '}
+                        <Text className="font-body-semibold">{watchedAnchor.trim()}</Text>, eu vou{' '}
+                        <Text className="font-body-semibold">{watchedName.trim()}</Text>.
                     </Text>
-                    <Text className="mb-5 mt-1 font-body text-[13px] text-ink-soft">
-                        Pequeno o bastante para você fazer até num dia ruim.
-                    </Text>
-
-                    <FormField
-                        label="O hábito"
-                        helper="Não “ler 30 minutos”. Uma página. Dá pra crescer depois."
-                    >
-                        <FormInput control={control} name="name" placeholder="ler 1 página" />
-                    </FormField>
-
-                    <FormField
-                        label="A âncora"
-                        helper="Prenda o hábito novo a algo que você já faz todo dia."
-                    >
-                        <View className="flex-row items-center gap-2">
-                            <Text className="font-body-medium text-[14px] text-ink-soft">
-                                Depois de
-                            </Text>
-                            <FormInput
-                                control={control}
-                                name="anchor"
-                                placeholder="tomar meu café"
-                                variant="pill"
-                            />
-                        </View>
-                    </FormField>
-
-                    <FormField
-                        label="O plano B · opcional"
-                        helper="Decidir agora o que fazer num dia difícil evita que uma falta vire duas."
-                    >
-                        <FormInput
-                            control={control}
-                            name="obstaclePlan"
-                            placeholder="se não der, leio antes de dormir"
-                        />
-                    </FormField>
-
-                    {isValid && (
-                        <View className="mb-4 flex-row items-start gap-2 rounded-xl border border-warm-1 bg-warm-surface p-3.5">
-                            <Ionicons name="sparkles" size={13} className="mt-0.5 text-warm-deep" />
-                            <Text className="flex-1 font-body text-[12.5px] leading-[18px] text-warm-deep">
-                                Toda vez que{' '}
-                                <Text className="font-body-semibold">{watchedAnchor.trim()}</Text>,
-                                eu vou{' '}
-                                <Text className="font-body-semibold">{watchedName.trim()}</Text>.
-                            </Text>
-                        </View>
-                    )}
-                </ScrollView>
-                <View className="px-5 pb-2 pt-2">
-                    <PrimaryButton
-                        label="Criar hábito"
-                        onPress={handleSubmit(handleCreateSubmit)}
-                        disabled={!isValid || isSubmitSuccessful}
-                    />
                 </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+            )}
+        </FormScreen>
     );
 }

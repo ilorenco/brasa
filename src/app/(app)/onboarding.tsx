@@ -3,12 +3,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
 import { type ComponentProps, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text, View } from 'react-native';
 
 import { IdentityChip } from '@/components/profile/identity-chip';
 import { FormField } from '@/components/ui/form-field';
-import { FormInput } from '@/components/ui/form-input';
+import { FormScreen } from '@/components/ui/form-screen';
+import { PrefixedInput } from '@/components/ui/prefixed-input';
 import { PrimaryButton } from '@/components/ui/primary-button';
 import { ScreenEyebrow } from '@/components/ui/screen-eyebrow';
 import { useProfile } from '@/contexts/profile-context';
@@ -122,77 +122,63 @@ export default function OnboardingScreen() {
     }
 
     return (
-        <SafeAreaView className="flex-1 bg-screen" edges={['top', 'bottom']}>
-            <KeyboardAvoidingView
-                className="flex-1"
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        <FormScreen
+            footer={
+                <PrimaryButton
+                    tone="ink"
+                    label="Continuar"
+                    onPress={handleSubmit(handleContinueSubmit)}
+                    disabled={!isValid}
+                />
+            }
+        >
+            <ScreenEyebrow label="Vamos começar · 1 de 2" />
+            <Text className="mt-2 font-display text-[25px] leading-tight text-ink">
+                Quem você quer se tornar?
+            </Text>
+            <Text className="mb-5 mt-1 font-body text-[13px] text-ink-soft">
+                Hábitos são votos para o tipo de pessoa que você quer ser. Escolha um ponto de
+                partida.
+            </Text>
+            <FormField
+                label="Quero ser alguém que..."
+                helper={
+                    isCustomIdentity
+                        ? 'Complete do seu jeito: cozinha, corre, estuda...'
+                        : undefined
+                }
             >
-                <ScrollView
-                    className="flex-1 px-5"
-                    contentContainerClassName="pt-4"
-                    keyboardShouldPersistTaps="handled"
-                >
-                    <ScreenEyebrow label="Vamos começar · 1 de 2" />
-                    <Text className="mt-2 font-display text-[25px] leading-tight text-ink">
-                        Quem você quer se tornar?
-                    </Text>
-                    <Text className="mb-5 mt-1 font-body text-[13px] text-ink-soft">
-                        Hábitos são votos para o tipo de pessoa que você quer ser. Escolha um ponto
-                        de partida.
-                    </Text>
-                    <FormField
-                        label="Quero ser alguém que..."
-                        helper={
-                            isCustomIdentity
-                                ? 'Complete do seu jeito: cozinha, corre, estuda...'
-                                : undefined
-                        }
-                    >
-                        <View className="gap-2.5">
-                            {IDENTITY_OPTIONS.map((identityOption) => (
-                                <IdentityChip
-                                    key={identityOption.complement}
-                                    icon={identityOption.icon}
-                                    label={capitalizeFirst(identityOption.complement)}
-                                    description={identityOption.description}
-                                    isSelected={
-                                        !isCustomIdentity &&
-                                        watchedComplement === identityOption.complement
-                                    }
-                                    onPress={() => handleOptionPress(identityOption)}
-                                />
-                            ))}
-                            <IdentityChip
-                                kind="custom"
-                                label="+ Criar a minha"
-                                isSelected={isCustomIdentity}
-                                onPress={handleCustomPress}
-                            />
-                            {isCustomIdentity && (
-                                <View className="mt-1 flex-row items-center gap-2">
-                                    <Text className="font-body-medium text-[14px] text-ink-soft">
-                                        Alguém que
-                                    </Text>
-                                    <FormInput
-                                        control={control}
-                                        name="identityComplement"
-                                        placeholder="cozinha"
-                                        variant="pill"
-                                    />
-                                </View>
-                            )}
-                        </View>
-                    </FormField>
-                </ScrollView>
-                <View className="px-5 pb-2 pt-2">
-                    <PrimaryButton
-                        tone="ink"
-                        label="Continuar"
-                        onPress={handleSubmit(handleContinueSubmit)}
-                        disabled={!isValid}
+                <View className="gap-2.5">
+                    {IDENTITY_OPTIONS.map((identityOption) => (
+                        <IdentityChip
+                            key={identityOption.complement}
+                            icon={identityOption.icon}
+                            label={capitalizeFirst(identityOption.complement)}
+                            description={identityOption.description}
+                            isSelected={
+                                !isCustomIdentity && watchedComplement === identityOption.complement
+                            }
+                            onPress={() => handleOptionPress(identityOption)}
+                        />
+                    ))}
+                    <IdentityChip
+                        kind="custom"
+                        label="+ Criar a minha"
+                        isSelected={isCustomIdentity}
+                        onPress={handleCustomPress}
                     />
+                    {isCustomIdentity && (
+                        <View className="mt-1">
+                            <PrefixedInput
+                                prefix="Alguém que"
+                                control={control}
+                                name="identityComplement"
+                                placeholder="cozinha"
+                            />
+                        </View>
+                    )}
                 </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+            </FormField>
+        </FormScreen>
     );
 }
