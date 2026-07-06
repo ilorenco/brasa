@@ -1,6 +1,7 @@
 // Celebra o check-in (RF05) — fecha o loop com um reforço imediato. Marcos de
-// constância ganham uma frase própria; os demais dias rotacionam por um pool de
-// afagos — determinístico pela constância, então varia dia a dia sem sortear.
+// constância ganham uma frase própria; os demais dias sorteiam um afago do pool
+// (recompensa variável: a imprevisibilidade alimenta o anseio). O sorteio vem
+// de fora (headlineDraw) para a função continuar pura.
 const milestoneHeadlines: Record<number, string> = {
     1: 'O primeiro dia.',
     7: 'Uma semana inteira.',
@@ -31,11 +32,21 @@ const rotatingHeadlines = [
     'Você cuidou.',
     'Segue de pé.',
     'Mais um dia seu.',
+    'Um voto em você.',
+    'Hoje também.',
+    'O corpo lembra.',
+    'A brasa cresce.',
+    'De pouco em pouco.',
+    'Já é rotina.',
+    'O campo nota.',
+    'Amanhã agradece.',
+    'Mais um voto.',
+    'Quieto e constante.',
 ];
 
-export function rewardHeadline(constancyDays: number): string {
+export function rewardHeadline(constancyDays: number, headlineDraw: number): string {
     return (
         milestoneHeadlines[constancyDays] ??
-        rotatingHeadlines[constancyDays % rotatingHeadlines.length]
+        rotatingHeadlines[Math.floor(headlineDraw * rotatingHeadlines.length)]
     );
 }

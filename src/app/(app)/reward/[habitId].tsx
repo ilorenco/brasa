@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown, FadeInUp, ZoomIn } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,6 +20,7 @@ export default function RewardScreen() {
     const router = useRouter();
     const { habitId } = useLocalSearchParams<{ habitId: string }>();
     const { habits } = useHabits();
+    const [headlineDraw] = useState(() => Math.random());
     const habit = habits.find((candidate) => candidate.id === habitId);
 
     if (!habit) return <Redirect href="/" />;
@@ -63,7 +65,7 @@ export default function RewardScreen() {
                     </Animated.View>
                     <Animated.View entering={FadeInDown.delay(300).duration(400)}>
                         <Text className="mt-1.5 text-center font-display text-[30px] leading-[32px] tracking-[-0.02em] text-reward-ink">
-                            {rewardHeadline(constancyDays)}
+                            {rewardHeadline(constancyDays, headlineDraw)}
                         </Text>
                     </Animated.View>
 
