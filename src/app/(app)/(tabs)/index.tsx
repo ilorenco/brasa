@@ -39,7 +39,7 @@ export default function TodayScreen() {
                     {formatDateLabel(now)}
                 </Text>
                 <Text className="mt-0.5 font-display text-2xl text-ink">
-                    {getGreeting(now.getHours())}, {firstName(profile.name)}
+                    {getGreeting(now)}, {firstName(profile.name)}
                 </Text>
                 {activeHabits.length > 0 && (
                     <Text className="mt-1 font-body text-[13px] text-ink-soft">
