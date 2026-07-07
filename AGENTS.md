@@ -40,6 +40,8 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Function components + hooks only. No class components.
 - TypeScript everywhere; type props explicitly, avoid `any`.
 - Styling via NativeWind (Tailwind classes), consistent with the existing design system (cores/fontes).
+- Icons are always **Ionicons** (`@expo/vector-icons`). The esboço mocks draw icons as text glyphs (✦, ↳, ◉) — translate them to the equivalent Ionicons (`sparkles-outline`, `return-down-forward-outline`, …), never render a glyph as text.
+- "Nothing here yet" moments use `EmptyState` — including section-level ones (e.g. insights without enough history), not just empty screens. `NoteCard` is for explanatory notes attached to existing content, never as an empty state.
 - Use Expo SDK APIs and modules over bare React Native / third-party libs when an equivalent exists.
 - Solve problems the way the React Native/Expo community does: when there's an established ecosystem standard, adopt it early instead of hand-rolling (RHF + zod, cva, DiceBear are examples of this) — and register the choice here. When the community consensus is that no lib is needed (one-liners like deriving a first name), a small pure helper in `src/lib/` **is** the standard; don't add a dependency to avoid one line.
 - Follow the Expo v57 docs (already referenced above) — don't rely on outdated APIs.
