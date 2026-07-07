@@ -32,6 +32,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Components are grouped by purpose under `src/components/`: `ui/` (generic, domain-agnostic primitives — buttons, form fields, cards), `habit/`, `profile/` (domain-specific), and `navigation/`. A component earns a domain folder when it's tied to that domain's data/copy; otherwise it's `ui/`.
 - Prefer declarative code: extract presentational pieces (e.g. a list-item component) so the parent reads as a mapping over data, not a wall of inline JSX + logic.
 - Only name a function `use*` if it actually calls React hooks. Logic that just transforms its inputs stays a plain pure function — clearer intent and easier to test than a "fake hook".
+- Helpers take the rich value the caller already holds and derive inside — `getGreeting(now: Date)`, not `getGreeting(hour: number)`. Pre-deriving a fragment at the call site pushes the function toward hand-rolled arithmetic (the mod-7 weekday bug) and blocks the library that owns that derivation.
 - Match the surrounding code's style, naming and patterns before introducing new ones.
 - Comments explain _why_, not _what_. Prefer self-explanatory code over comments.
 
@@ -60,6 +61,7 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 - Native UI/effects: `@expo/ui`, `expo-symbols`, `expo-glass-effect` when they fit the design.
 - Avatars: **DiceBear** (`@dicebear/core` + the style package, `@dicebear/thumbs` — never the `@dicebear/collection` barrel, it drags all 31 styles into the bundle) rendered via `SvgXml` (react-native-svg) — generated locally from a seed, no photo upload or personal images (privacy by design / LGPD). Brand palette + style live in `src/lib/avatar-svg.ts`.
 - Brand mark: the drawing is `src/theme/brand-mark.js` (single source, consumed by the `BrandMark` component and asset generation); `assets/brand/brasa-mark.svg` is generated — never edit it by hand, run `npm run generate:brand`.
+- Dates: **date-fns** (already a dependency) for all date math and formatting — `isWeekend`/`subDays` for calendar logic, `format` with the `ptBR` locale for labels. Never hand-roll weekday/mod-7 arithmetic, month names, or duration math.
 - Modern JS/TS: `async/await` over `.then()` chains, optional chaining `?.`, nullish coalescing `??`, destructuring.
 - Respect safe areas via `react-native-safe-area-context`.
 - Code must pass `expo lint` + Prettier (enforced by lint-staged/husky) — don't fight the formatter.
